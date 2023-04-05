@@ -11,12 +11,17 @@ import (
 	"time"
 )
 
-type Target struct {
-	Wind  int
-	Water int
+func main() {
+	doEvery(15000*time.Millisecond, helloworld)
 }
 
-func main() {
+func doEvery(d time.Duration, f func(time.Time)) {
+	for x := range time.Tick(d) {
+		f(x)
+	}
+}
+
+func helloworld(t time.Time) {
 	rand.Seed(time.Now().UnixNano())
 
 	randomWater := rand.Intn(100)
